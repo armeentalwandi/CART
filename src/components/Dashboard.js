@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2 style={{ color: 'white' }}>Dashboard</h2>
       <button onClick={handleButtonClick}>Go to Inventory Management Dashboard</button>
     </div>
   );
