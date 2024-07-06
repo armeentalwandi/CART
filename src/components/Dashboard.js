@@ -1,11 +1,18 @@
-// src/components/Dashboard.js
+// src/components/dashboard/Dashboard.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/inventory');
+  };
+
   return (
     <div>
       <h2>Dashboard</h2>
-      <p>Welcome to the Dashboard!</p>
+      <button onClick={handleButtonClick}>Go to Inventory Management Dashboard</button>
     </div>
   );
 };

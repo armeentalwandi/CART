@@ -21,7 +21,7 @@ const Login = () => {
         signInSuccessWithAuthResult: (authResult, redirectUrl) => {
           // User successfully signed in.
           // Return false to prevent FirebaseUI from redirecting to the signInSuccessUrl.
-          return false;
+          return true;
         },
         signInFailure: (error) => {
           console.error('Sign-in error:', error);
