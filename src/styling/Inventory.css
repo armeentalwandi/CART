@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #00b4db, #0083b0);
+  background: rgb(4, 4, 4);
   height: 100%;
   display: flex;
   justify-content: center;
@@ -25,7 +25,7 @@ body {
 
 .chart-box {
   padding: 20px;
-  background: white;
+  background:white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 300px;
