@@ -1,0 +1,40 @@
+/* src/styling/login.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #2e70e1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient blue background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+}
+
+.logo-img {
+  width: 150px; /* Adjust the size as needed */
+  margin-bottom: 20px;
+}
+
+#firebaseui-auth-container .mdl-card {
+  box-shadow: none;
+}
+
+#firebaseui-auth-container .mdl-card__supporting-text {
+  padding: 0;
+}
