@@ -5,11 +5,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import StorageIcon from '@mui/icons-material/Storage';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HelpIcon from '@mui/icons-material/Help';
 import ExtensionIcon from '@mui/icons-material/Extension'; // Import ExtensionIcon for Plugins
 import AddIcon from '@mui/icons-material/Add'; // Import AddIcon for Add button
+import SocialMediaIcon from '@mui/icons-material/TrendingUp'; // Import an icon for Social Media Analytics
 import '../styling/NavigationPanel.css'; // Import the CSS file
 import logo from '../Pics/logo.png'; // Ensure the path to your logo is correct
 import { signOut } from 'firebase/auth'; // Import signOut function from firebase/auth
@@ -24,7 +24,7 @@ const NavigationPanel = () => {
     { id: 'home', label: 'Home', icon: <HomeIcon fontSize="small" /> },
     { id: 'inventory', label: 'Inventory', icon: <StorageIcon fontSize="small" /> },
     { id: 'customerInsights', label: 'Customer Insights', icon: <BarChartIcon fontSize="small" /> },
-    { id: 'cart', label: 'Cart', icon: <ShoppingCartIcon fontSize="small" /> },
+    { id: 'socialMediaAnalytics', label: 'Social Media Analytics', icon: <SocialMediaIcon fontSize="small" /> },
     { id: 'profile', label: 'Profile', icon: <AccountCircleIcon fontSize="small" /> },
     { id: 'help', label: 'Help', icon: <HelpIcon fontSize="small" /> },
     { id: 'plugins', label: 'Plugins', icon: <ExtensionIcon fontSize="small" /> },
@@ -62,8 +62,8 @@ const NavigationPanel = () => {
       case 'customerInsights':
         navigate('/customer-insights');
         break;
-      case 'cart':
-        navigate('/cart');
+      case 'socialMediaAnalytics':
+        navigate('/social-media');
         break;
       case 'profile':
         navigate('/profile');
