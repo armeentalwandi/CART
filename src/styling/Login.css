@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: black;
+  background: #f0f2f5 !important; /* Nice blue background */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -57,5 +57,5 @@ body {
 .error-message {
   color: red;
   margin-bottom: 10px;
-  font-size:
+  font-size: 14px; /* Ensure the font size is defined */
 }

@@ -1,40 +1,70 @@
-// src/components/NavigationPanel.js
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Paper } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import StorageIcon from '@mui/icons-material/Storage';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import '../styling/NavigationPanel.css'; // Import the CSS file
 import logo from '../Pics/logo.png'; // Ensure the path to your logo is correct
+import { signOut } from 'firebase/auth'; // Import signOut function from firebase/auth
+import { auth } from '../firebase'; // Import the auth instance from your firebase config
 
 const NavigationPanel = () => {
   const navigate = useNavigate();
+  const [selectedButton, setSelectedButton] = useState(null);
 
-  const handleBackClick = () => {
-    navigate('/');
+  const handleHomeClick = () => {
+    navigate('/dashboard');
+    setSelectedButton('home');
+  };
+
+  const handleButtonClickInventory = () => {
+    navigate('/inventory');
+    setSelectedButton('inventory');
+  };
+
+  const handleButtonClickCI = () => {
+    navigate('/customer-insights');
+    setSelectedButton('customerInsights');
+  };
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      navigate('/');
+    }).catch((error) => {
+      console.error('Sign out error:', error);
+    });
   };
 
   return (
-    <Paper 
-      sx={{
-        width: '250px',
-        height: '100vh',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: '#282828a8', // Black background color
-        boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-        zIndex: 1,
-        paddingTop: '20px'
-      }}
-    >
-      <img src={logo} alt="Cart Logo" className="navigation-logo" />
-      <Box p={2} width="100%" display="flex" flexDirection="column" alignItems="center">
-        <button className="navigation-button" onClick={handleBackClick}>
-          Back to Dashboard
+    <Paper className="navigation-panel">
+      <div className="logo-container">
+        <img src={logo} alt="Cart Logo" className="navigation-logo" />
+      </div>
+      <Box p={2} width="100%" display="flex" flexDirection="column" alignItems="flex-start">
+        <button
+          className={`navigation-button ${selectedButton === 'home' ? 'selected' : ''}`}
+          onClick={handleHomeClick}
+        >
+          <HomeIcon style={{ marginRight: 8 }} fontSize="small" /> Home
         </button>
-        {/* Add more buttons here if needed */}
+        <button
+          className={`navigation-button ${selectedButton === 'inventory' ? 'selected' : ''}`}
+          onClick={handleButtonClickInventory}
+        >
+          <StorageIcon style={{ marginRight: 8 }} fontSize="small" /> Inventory
+        </button>
+        <button
+          className={`navigation-button ${selectedButton === 'customerInsights' ? 'selected' : ''}`}
+          onClick={handleButtonClickCI}
+        >
+          <BarChartIcon style={{ marginRight: 8 }} fontSize="small" /> Customer Insights
+        </button>
+        <hr className="navigation-divider" /> {/* Horizontal divider */}
+        <button className="navigation-button" onClick={handleSignOut}>
+          <ExitToAppIcon style={{ marginRight: 8 }} fontSize="small" /> Sign Out
+        </button>
       </Box>
     </Paper>
   );

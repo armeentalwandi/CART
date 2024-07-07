@@ -23,4 +23,4 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app)
 const ui = new firebaseui.auth.AuthUI(auth);
 
-export { auth, ui };
+export { auth, ui};

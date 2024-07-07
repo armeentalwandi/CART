@@ -25,9 +25,9 @@ const Login = () => {
           signInSuccessWithAuthResult: (authResult, redirectUrl) => {
             // User successfully signed in.
             // Navigate to the Dashboard component
-            navigate('/');
+            navigate('/dashboard');
             // Return false to prevent FirebaseUI from redirecting to the signInSuccessUrl.
-            // return false;
+            return false;
           },
           signInFailure: (error) => {
             console.error('Sign-in error:', error);
