@@ -1,116 +1,199 @@
 import React, { useState } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import '../styling/Plugin.css'; // Import the CSS file for Plugins
+import { useNavigate } from 'react-router-dom';
+import { Box, Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material'; // Import icons
+import NavigationPanel from './NavigationPanel'; // Import NavigationPanel component
+import AWSIcon from '../Pics/aws.png'; // Import your AWS icon
+import GoogleAnalyticsIcon from '../Pics/google-analytics.svg'; // Import your Google Analytics icon
+import FacebookAnalyticsIcon from '../Pics/facebook-analytics.png'; // Import your Facebook Analytics icon
+import SalesforceIcon from '../Pics/salesforce.svg'; // Import your Salesforce icon
+import '../styling/Plugin.css'; // Import CSS for styling
 
-const Plugins = () => {
-  const [draggingIndex, setDraggingIndex] = useState(null);
-  const [tiles, setTiles] = useState([
-    { id: 'tile1', label: 'Tile 1' },
-    { id: 'tile2', label: 'Tile 2' },
-    { id: 'tile3', label: 'Tile 3' },
-    { id: 'tile4', label: 'Tile 4' },
-  ]);
+const Plugin = () => {
+  const navigate = useNavigate();
+  const [openForm, setOpenForm] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', suggestion: '' });
 
-  const handleDragStart = (index) => {
-    setDraggingIndex(index);
+  const handleOpenForm = () => {
+    setOpenForm(true);
   };
 
-  const handleDragOver = (index) => {
-    if (draggingIndex === null || draggingIndex === index) return;
-
-    const updatedTiles = [...tiles];
-    const draggedTile = updatedTiles[draggingIndex];
-    updatedTiles.splice(draggingIndex, 1);
-    updatedTiles.splice(index, 0, draggedTile);
-
-    setTiles(updatedTiles);
-    setDraggingIndex(index);
+  const handleCloseForm = () => {
+    setOpenForm(false);
+    setFormData({ name: '', email: '', suggestion: '' }); // Clear form data on close
   };
 
-  const handleDragEnd = () => {
-    setDraggingIndex(null);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleAddTileClick = () => {
-    // Handle click for adding a new tile
-    console.log('Add Tile clicked');
-    // Add logic to add a new tile
+  const handleFormSubmit = () => {
+    // Handle form submission logic here
+    console.log('Form submitted:', formData);
+    handleCloseForm();
   };
 
   return (
-    <Box
-      ml={8} // Margin left for spacing
-      p={4} // Padding for the Plugins content
-      display="flex"
-      flexDirection="column"
-      alignItems="flex-start" // Left-align content
-    >
-      <Typography variant="h4" gutterBottom>
-        Plugins
-      </Typography>
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        gap={4} // Gap between tiles
-      >
-        {tiles.map((tile, index) => (
-          <Paper
-            key={tile.id}
-            className="plugin-tile"
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={() => handleDragOver(index)}
-            onDragEnd={handleDragEnd}
-            draggable
-            sx={{
-              width: 200,
-              height: 200,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              cursor: 'pointer',
-              transition: 'background 0.3s ease',
-              '&:hover': {
-                background: 'linear-gradient(45deg, #1e90ff, #00bfff)',
-                color: '#ffffff',
-              },
-            }}
-          >
-            <Typography variant="h3" align="center">
-              {tile.label}
+    <div className="plugin-page">
+      <Grid container spacing={2}>
+        <Grid item xs={3}>
+          <NavigationPanel /> {/* Include NavigationPanel component on the left */}
+        </Grid>
+        <Grid item xs={9}>
+          <div className="plugin-content">
+            <Typography variant="h4" gutterBottom style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
+              Plugins
             </Typography>
-          </Paper>
-        ))}
-        {/* Add Tile */}
-        <Paper
-          className="plugin-tile add-tile"
-          onClick={handleAddTileClick}
-          sx={{
-            width: 200,
-            height: 200,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            background: '#f0f0f0',
-            color: '#666',
-            cursor: 'pointer',
-            transition: 'background 0.3s ease',
-            '&:hover': {
-              background: 'linear-gradient(45deg, #1e90ff, #00bfff)',
-              color: '#ffffff',
-            },
-          }}
-        >
-          <AddIcon style={{ fontSize: 60 }} />
-          <Typography variant="subtitle1" align="center">
-            Add Tile
-          </Typography>
-        </Paper>
-      </Box>
-    </Box>
+            <Typography variant="body1" paragraph style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>
+              Explore and manage your plugins.
+            </Typography>
+
+            <div className="plugin-tiles">
+              {/* AWS Plugin Tile */}
+              <Paper
+                className="plugin-tile"
+                onClick={() => navigate('/plugins/aws')}
+                sx={tileStyle}
+              >
+                <img src={AWSIcon} alt="AWS" className="plugin-icon" />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
+                  AWS
+                </Typography>
+              </Paper>
+
+              {/* Google Analytics Plugin Tile */}
+              <Paper
+                className="plugin-tile"
+                onClick={() => navigate('/plugins/google-analytics')}
+                sx={tileStyle}
+              >
+                <img src={GoogleAnalyticsIcon} alt="Google Analytics" className="plugin-icon" />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
+                  Google Analytics
+                </Typography>
+              </Paper>
+
+              {/* Facebook Analytics Plugin Tile */}
+              <Paper
+                className="plugin-tile"
+                onClick={() => navigate('/plugins/facebook-analytics')}
+                sx={tileStyle}
+              >
+                <img src={FacebookAnalyticsIcon} alt="Facebook Analytics" className="plugin-icon" />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
+                  Facebook Analytics
+                </Typography>
+              </Paper>
+
+              {/* Salesforce Plugin Tile */}
+              <Paper
+                className="plugin-tile"
+                onClick={() => navigate('/plugins/salesforce')}
+                sx={tileStyle}
+              >
+                <img src={SalesforceIcon} alt="Salesforce" className="plugin-icon" />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
+                  Salesforce
+                </Typography>
+              </Paper>
+
+              {/* Add Plugin Tile */}
+              <Paper
+                className="plugin-tile add-tile"
+                onClick={handleOpenForm}
+                sx={{
+                  ...tileStyle,
+                  background: '#f0f0f0',
+                  color: '#666',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #1e90ff, #00bfff)',
+                    color: '#ffffff',
+                  },
+                }}
+              >
+                <AddIcon style={{ fontSize: 60, color: '#1e90ff' }} />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#1e90ff' }}>
+                  Add Plugin
+                </Typography>
+              </Paper>
+            </div>
+
+            {/* Dialog for Add Plugin Form */}
+            <Dialog open={openForm} onClose={handleCloseForm}>
+              <DialogTitle>Add Plugin Suggestion</DialogTitle>
+              <DialogContent>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      InputProps={{
+                        style: { fontFamily: 'Arial, sans-serif' }
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      InputProps={{
+                        style: { fontFamily: 'Arial, sans-serif' }
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={4}
+                      label="Suggestion"
+                      name="suggestion"
+                      value={formData.suggestion}
+                      onChange={handleChange}
+                      InputProps={{
+                        style: { fontFamily: 'Arial, sans-serif' }
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseForm} style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#1e90ff' }}>Cancel</Button>
+                <Button onClick={handleFormSubmit} variant="contained" color="primary" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 
-export default Plugins;
+export default Plugin;
+
+const tileStyle = {
+  width: 200,
+  height: 200,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer',
+  transition: 'background 0.3s ease',
+  '&:hover': {
+    background: 'linear-gradient(45deg, #1e90ff, #00bfff)',
+    color: '#ffffff',
+  },
+};
