@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Inventory from './components/Inventory';
 import CustomerInsights from './components/CustomerInsights';
-
+import Plugin from './components/Plugin';
 function App() {
   return (
     <Router>
@@ -15,6 +15,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/customer-insights" element={<CustomerInsights />} />
+          <Route path="/plugins" element={<Plugin />} />
         </Route>
       </Routes>
     </Router>

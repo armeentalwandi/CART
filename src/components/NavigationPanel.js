@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom'; // Import NavLink for routing
 import { Box, Paper } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import StorageIcon from '@mui/icons-material/Storage';
@@ -8,6 +8,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HelpIcon from '@mui/icons-material/Help';
+import ExtensionIcon from '@mui/icons-material/Extension'; // Import ExtensionIcon for Plugins
+import AddIcon from '@mui/icons-material/Add'; // Import AddIcon for Add button
 import '../styling/NavigationPanel.css'; // Import the CSS file
 import logo from '../Pics/logo.png'; // Ensure the path to your logo is correct
 import { signOut } from 'firebase/auth'; // Import signOut function from firebase/auth
@@ -17,34 +19,69 @@ const NavigationPanel = () => {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(null);
 
-  const handleHomeClick = () => {
-    navigate('/dashboard');
-    setSelectedButton('home');
+  const [draggingIndex, setDraggingIndex] = useState(null);
+  const [buttons, setButtons] = useState([
+    { id: 'home', label: 'Home', icon: <HomeIcon fontSize="small" /> },
+    { id: 'inventory', label: 'Inventory', icon: <StorageIcon fontSize="small" /> },
+    { id: 'customerInsights', label: 'Customer Insights', icon: <BarChartIcon fontSize="small" /> },
+    { id: 'cart', label: 'Cart', icon: <ShoppingCartIcon fontSize="small" /> },
+    { id: 'profile', label: 'Profile', icon: <AccountCircleIcon fontSize="small" /> },
+    { id: 'help', label: 'Help', icon: <HelpIcon fontSize="small" /> },
+    { id: 'plugins', label: 'Plugins', icon: <ExtensionIcon fontSize="small" /> },
+    { id: 'add', label: 'Add', icon: <AddIcon fontSize="small" /> },
+  ]);
+
+  const handleDragStart = (index) => {
+    setDraggingIndex(index);
   };
 
-  const handleButtonClickInventory = () => {
-    navigate('/inventory');
-    setSelectedButton('inventory');
+  const handleDragOver = (index) => {
+    if (draggingIndex === null || draggingIndex === index) return;
+
+    const updatedButtons = [...buttons];
+    const draggedButton = updatedButtons[draggingIndex];
+    updatedButtons.splice(draggingIndex, 1);
+    updatedButtons.splice(index, 0, draggedButton);
+
+    setButtons(updatedButtons);
+    setDraggingIndex(index);
   };
 
-  const handleButtonClickCI = () => {
-    navigate('/customer-insights');
-    setSelectedButton('customerInsights');
+  const handleDragEnd = () => {
+    setDraggingIndex(null);
   };
 
-  const handleButtonClickCart = () => {
-    navigate('/cart');
-    setSelectedButton('cart');
-  };
-
-  const handleButtonClickProfile = () => {
-    navigate('/profile');
-    setSelectedButton('profile');
-  };
-
-  const handleButtonClickHelp = () => {
-    navigate('/help');
-    setSelectedButton('help');
+  const handleButtonClick = (id) => {
+    switch (id) {
+      case 'home':
+        navigate('/dashboard');
+        break;
+      case 'inventory':
+        navigate('/inventory');
+        break;
+      case 'customerInsights':
+        navigate('/customer-insights');
+        break;
+      case 'cart':
+        navigate('/cart');
+        break;
+      case 'profile':
+        navigate('/profile');
+        break;
+      case 'help':
+        navigate('/help');
+        break;
+      case 'plugins':
+        navigate('/plugins');
+        break;
+      case 'signout':
+        handleSignOut();
+        break;
+      default:
+        // handle other cases
+        break;
+    }
+    setSelectedButton(id);
   };
 
   const handleSignOut = () => {
@@ -63,46 +100,28 @@ const NavigationPanel = () => {
         <img src={logo} alt="Cart Logo" className="navigation-logo" />
       </div>
       <Box p={2} width="100%" display="flex" flexDirection="column" alignItems="flex-start">
-        <button
-          className={`navigation-button ${selectedButton === 'home' ? 'selected' : ''}`}
-          onClick={handleHomeClick}
-        >
-          <HomeIcon style={{ marginRight: 8 }} fontSize="small" /> Home
-        </button>
-        <button
-          className={`navigation-button ${selectedButton === 'inventory' ? 'selected' : ''}`}
-          onClick={handleButtonClickInventory}
-        >
-          <StorageIcon style={{ marginRight: 8 }} fontSize="small" /> Inventory
-        </button>
-        <button
-          className={`navigation-button ${selectedButton === 'customerInsights' ? 'selected' : ''}`}
-          onClick={handleButtonClickCI}
-        >
-          <BarChartIcon style={{ marginRight: 8 }} fontSize="small" /> Customer Insights
-        </button>
-        <button
-          className={`navigation-button ${selectedButton === 'cart' ? 'selected' : ''}`}
-          onClick={handleButtonClickCart}
-        >
-          <ShoppingCartIcon style={{ marginRight: 8 }} fontSize="small" /> Cart
-        </button>
-        <button
-          className={`navigation-button ${selectedButton === 'profile' ? 'selected' : ''}`}
-          onClick={handleButtonClickProfile}
-        >
-          <AccountCircleIcon style={{ marginRight: 8 }} fontSize="small" /> Profile
-        </button>
-        <button
-          className={`navigation-button ${selectedButton === 'help' ? 'selected' : ''}`}
-          onClick={handleButtonClickHelp}
-        >
-          <HelpIcon style={{ marginRight: 8 }} fontSize="small" /> Help
-        </button>
+        {buttons.map((button, index) => (
+          <div
+            key={button.id}
+            className={`navigation-button ${selectedButton === button.id ? 'selected' : ''}`}
+            onClick={() => handleButtonClick(button.id)}
+            draggable={button.id !== 'signout'} // Disable drag for 'Sign Out' button
+            onDragStart={() => handleDragStart(index)}
+            onDragOver={() => handleDragOver(index)}
+            onDragEnd={handleDragEnd}
+          >
+            {button.icon}
+            <span style={{ marginLeft: 8 }}>{button.label}</span>
+          </div>
+        ))}
         <hr className="navigation-divider" /> {/* Horizontal divider */}
-        <button className="navigation-button" onClick={handleSignOut}>
-          <ExitToAppIcon style={{ marginRight: 8 }} fontSize="small" /> Sign Out
-        </button>
+        <div
+          className={`navigation-button ${selectedButton === 'signout' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('signout')}
+        >
+          <ExitToAppIcon fontSize="small" />
+          <span style={{ marginLeft: 8 }}>Sign Out</span>
+        </div>
       </Box>
     </Paper>
   );

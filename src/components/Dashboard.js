@@ -9,22 +9,24 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null); // State to hold current user data
   const [inventoryCount, setInventoryCount] = useState(10432); // State for inventory count
+  const [churnRate, setChurnRate] = useState(2.3); // State for churn rate
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setCurrentUser(user); // Set current user state
         console.log('Current User:', user);
-        // Simulate fetching inventory count from backend
-        // Replace with actual logic to fetch inventory count
+        // Simulate fetching data from backend
+        // Replace with actual logic to fetch data
         setTimeout(() => {
-          setInventoryCount(10432); // Example: Set inventory count to 50
+          setInventoryCount(10432); // Example: Set inventory count
+          setChurnRate(2.3); // Example: Set churn rate
         }, 1000); // Simulate delay
       } else {
         setCurrentUser(null); // Reset current user state
       }
     });
-  
+
     return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
   }, []);
 
@@ -41,7 +43,7 @@ const Dashboard = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '100vh', paddingTop: '20px' }}>
       <NavigationPanel />
-      <Box 
+      <Box
         ml={8} // Margin left for spacing
         p={4} // Padding for the dashboard content
         display="flex"
@@ -55,14 +57,14 @@ const Dashboard = () => {
           Here's a brief overview of your dashboard.
         </Typography>
 
-        <Box 
-          display="flex" 
-          flexWrap="wrap" 
+        <Box
+          display="flex"
+          flexWrap="wrap"
           gap={4} // Gap between tiles
         >
           {/* Inventory Tile */}
-          <Paper 
-            className="dashboard-tile" 
+          <Paper
+            className="dashboard-tile"
             onClick={() => navigate('/inventory')}
             sx={tileStyle}
           >
@@ -75,20 +77,22 @@ const Dashboard = () => {
           </Paper>
 
           {/* Customer Insights Tile */}
-          <Paper 
-            className="dashboard-tile" 
+          <Paper
+            className="dashboard-tile"
             onClick={handleButtonClickCI}
             sx={tileStyle}
           >
-            <BarChartIcon style={{ fontSize: 60 }} />
+            <Typography variant="h3" align="center">
+              {churnRate}%
+            </Typography>
             <Typography variant="subtitle1" align="center">
-              Customer Insights
+              Churn Rate
             </Typography>
           </Paper>
 
           {/* Add Tile */}
-          <Paper 
-            className="dashboard-tile add-tile" 
+          <Paper
+            className="dashboard-tile add-tile"
             onClick={handleAddTileClick}
             sx={{
               ...tileStyle,
