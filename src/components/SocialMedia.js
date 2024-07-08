@@ -119,8 +119,8 @@ const SocialMedia = () => {
       <NavigationPanel />
       <Box flexGrow={1} marginLeft="250px">
         <Container maxWidth="lg" className="customer-insights-container">
-          <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
-            Customer Insights Dashboard
+          <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
+            Social Media Dashboard
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={3}>

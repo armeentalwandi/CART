@@ -108,7 +108,7 @@ const Inventory = () => {
       <NavigationPanel />
       <Box flexGrow={1} marginLeft="250px">
         <Container maxWidth="lg" className="inventory-container">
-          <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
+          <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
             Inventory Management Dashboard
           </Typography>
           <Grid container spacing={2}>
