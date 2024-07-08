@@ -7,6 +7,8 @@ import Inventory from './components/Inventory';
 import CustomerInsights from './components/CustomerInsights';
 import Plugin from './components/Plugin';
 import SocialMedia from './components/SocialMedia';
+import Profile from './components/Profile';
+
 function App() {
   return (
     <Router>
@@ -18,6 +20,7 @@ function App() {
           <Route path="/customer-insights" element={<CustomerInsights />} />
           <Route path="/plugins" element={<Plugin />} />
           <Route path="/social-media" element={<SocialMedia />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </Router>
