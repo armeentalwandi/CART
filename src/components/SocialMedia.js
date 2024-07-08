@@ -1,7 +1,7 @@
-import React from 'react';
+import { useState, React } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
 import NavigationPanel from './NavigationPanel'; // Import the NavigationPanel component
 import '../styling/SocialMedia.css'; // Import CSS for styling
 
@@ -16,10 +16,28 @@ const adClicksData = {
       label: 'Ad Clicks',
       data: [300, 225, 382, 420, 255, 425],
       backgroundColor: 'rgba(205, 32, 31, 0.6)',
-      stacked: true
     },
   ],
 };
+
+/*
+const adCostsData = {
+  labels: ['Facebook', 'Instagram', 'YouTube', 'Linkedin', 'Twitter'],
+  datasets: [
+    {
+      label: 'Followers Distribution',
+      data: [1000, 2000, 2032, 2000, 1000],
+      backgroundColor: [
+        'rgba(24, 119, 242, 0.6)',
+        'rgba(228, 64, 95, 0.6)',
+        'rgba(205, 32, 31, 0.6)',
+        'rgba(10, 102, 194, 0.6)',
+        'rgba(29, 161, 242, 0.6)',
+      ],
+    },
+  ],
+};
+*/
 
 const costPerConversionData = {
   labels: ['March', 'April', 'May', 'June', 'July'],
@@ -27,9 +45,8 @@ const costPerConversionData = {
     {
       label: 'Cost Per Conversion',
       data: [80, 120, 100, 140, 160],
-      fill: true,
+      fill: false,
       borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)'
     },
   ],
 };
@@ -90,6 +107,7 @@ const chartOptions = {
       bottom: 10,
     },
   },
+  /*
   scales: {
     x: {
       ticks: {
@@ -108,12 +126,38 @@ const chartOptions = {
       },
     },
   },
+  */
   maintainAspectRatio: false,
   responsive: true,
   backgroundColor: '#eae8e4', // Chart background color
 };
 
 const SocialMedia = () => {
+  const [adCostsData, setadCostsData] = useState({
+    labels: ['Facebook', 'Instagram', 'YouTube', 'Linkedin', 'Twitter'],
+    datasets: [
+      {
+        label: 'Followers Distribution',
+        data: [1000, 2000, 2032, 2000, 1000],
+        backgroundColor: [
+          'rgba(24, 119, 242, 0.6)',
+          'rgba(228, 64, 95, 0.6)',
+          'rgba(205, 32, 31, 0.6)',
+          'rgba(10, 102, 194, 0.6)',
+          'rgba(29, 161, 242, 0.6)',
+        ],
+      },
+    ],
+  });
+
+  const updateChartData = () => {
+    const newData = adCostsData.datasets[0].data.map(() => Math.floor(Math.random() * 500));
+    setadCostsData({
+      ...adCostsData,
+      datasets: [{ ...adCostsData.datasets[0], data: newData }],
+    });
+  };
+
   return (
     <Box display="flex" flexGrow={1}>
       <NavigationPanel />
@@ -148,10 +192,23 @@ const SocialMedia = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6} md={6}>
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
                 <Typography variant="h6">Ad Clicks</Typography>
                 <Bar data={adClicksData} options={chartOptions} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6}>
+              <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <Grid container alignItems="center" spacing={2}>
+                <Grid item xs={8}>
+                  <Typography variant="h6">Ad Costs Breakdown</Typography>
+                </Grid>
+                <Grid item xs={4} style={{ textAlign: 'right' }}>
+                  <Button variant="contained" onClick={updateChartData}>Update Data</Button>
+                </Grid>
+              </Grid>
+                <Pie data={adCostsData} options={chartOptions}/>
               </Paper>
             </Grid>
 
