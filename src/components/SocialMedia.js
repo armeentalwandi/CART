@@ -10,7 +10,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointEleme
 
 // Sample data for the charts
 const adClicksData = {
-  labels: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'],
+  labels: ['February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
       label: 'Ad Clicks',
