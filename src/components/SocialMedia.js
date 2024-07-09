@@ -1,7 +1,7 @@
 import { useState, React } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import { Box, Container, Grid, Paper, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Button, List, ListItem, ListItemText, TextField } from '@mui/material';
 import NavigationPanel from './NavigationPanel'; // Import the NavigationPanel component
 import '../styling/SocialMedia.css'; // Import CSS for styling
 
@@ -133,6 +133,12 @@ const chartOptions = {
 };
 
 const SocialMedia = () => {
+  const [inputData, setInputData] = useState('');
+  
+  const handleInputChange = (event) => {
+    setInputData(event.target.value);
+  };
+    
   const [adCostsData, setadCostsData] = useState({
     labels: ['Facebook', 'Instagram', 'YouTube', 'Linkedin', 'Twitter'],
     datasets: [
@@ -151,10 +157,12 @@ const SocialMedia = () => {
   });
 
   const updateChartData = () => {
-    const newData = adCostsData.datasets[0].data.map(() => Math.floor(Math.random() * 500));
+    const newDataArray = inputData.split(',').map(item => item.trim());
+    //const newData = adCostsData.datasets[0].data.map(() => Math.floor(Math.random() * 500));
     setadCostsData({
       ...adCostsData,
-      datasets: [{ ...adCostsData.datasets[0], data: newData }],
+      datasets: [{ ...adCostsData.datasets[0], data: newDataArray.map(num => Number(num))
+      }],
     });
   };
 
@@ -209,8 +217,17 @@ const SocialMedia = () => {
             <Grid item xs={12} sm={6} md={6}>
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
               <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={8}>
+                <Grid item xs={5}>
                   <Typography variant="h6">Ad Costs Breakdown</Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField  
+                    type="text" 
+                    value={inputData} 
+                    onChange={handleInputChange} 
+                    placeholder="Enter costs" 
+                    variant="standard"
+                  />
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }}>
                   <Button variant="contained" onClick={updateChartData}>Update Data</Button>

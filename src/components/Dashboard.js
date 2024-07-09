@@ -51,7 +51,7 @@ const Dashboard = () => {
         alignItems="flex-start" // Left-align content
       >
         <Typography variant="h4" gutterBottom>
-          Welcome, Umer!
+          Welcome, Armeen!
         </Typography>
         <Typography variant="body1" paragraph>
           Here's a brief overview of your dashboard.
