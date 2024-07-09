@@ -137,7 +137,7 @@ const SocialMedia = () => {
     labels: ['Facebook', 'Instagram', 'YouTube', 'Linkedin', 'Twitter'],
     datasets: [
       {
-        label: 'Followers Distribution',
+        label: 'Ad Cost',
         data: [1000, 2000, 2032, 2000, 1000],
         backgroundColor: [
           'rgba(24, 119, 242, 0.6)',
@@ -228,6 +228,12 @@ const SocialMedia = () => {
               <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#eae8e4' }}>
                 <Typography variant="h6">Social Traffic</Typography>
                 <Line data={socialTrafficData} options={chartOptions} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
+                <Typography variant="h6">AI Recommendations</Typography>
+                <Typography variant="h6">TEST</Typography>
               </Paper>
             </Grid>
           </Grid>
