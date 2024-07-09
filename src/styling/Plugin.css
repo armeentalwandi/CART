@@ -1,0 +1,60 @@
+.plugin-page {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .plugin-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .plugin-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .plugin-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .plugin-tile:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .plugin-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .plugin-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .dialog-title {
+    text-align: center;
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  

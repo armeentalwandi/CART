@@ -1,9 +1,9 @@
-/* src/styling/login.css */
+/* Login.css */
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: black;
+  background: #ffffff !important; /* Set a white background for the body */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -15,26 +15,48 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 0 20px; /* Add padding for smaller screens */
+  box-sizing: border-box; /* Ensure padding is included in the total width/height */
 }
 
 .login-box {
   background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient blue background */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  padding: 20px;
+  width: 400px; /* Increase width for a larger login box */
+  max-width: 100%; /* Ensure the box doesn't exceed the viewport width */
+  padding: 60px 40px; /* Increase padding for better spacing */
   text-align: center;
 }
 
 .logo-img {
   width: 150px; /* Adjust the size as needed */
+  max-width: 100%; /* Ensure the logo doesn't exceed the viewport width */
   margin-bottom: 20px;
 }
 
-#firebaseui-auth-container .mdl-card {
-  box-shadow: none;
+.button-container {
+  margin-top: 20px; /* Adjust margin top for better spacing */
 }
 
-#firebaseui-auth-container .mdl-card__supporting-text {
-  padding: 0;
+.button-container button {
+  margin: 10px;
+  padding: 12px 24px; /* Increase padding for button size */
+  background-color: #2575fc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: #1e4aad; /* Darker shade of blue */
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px; /* Adjust margin top for error message */
+  font-size: 14px; /* Ensure the font size is defined */
 }

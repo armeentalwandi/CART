@@ -1,0 +1,27 @@
+.social-media-page {
+    display: flex;
+  }
+  
+  .navigation-panel {
+    flex-shrink: 0; /* Prevents the navigation panel from shrinking */
+  }
+  
+  .content {
+    padding: 20px;
+    flex-grow: 1; /* Allows the content area to grow and take available space */
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .page-description {
+    margin-bottom: 30px;
+  }
+  
+  .analytics-overview {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  

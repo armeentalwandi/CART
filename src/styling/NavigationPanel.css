@@ -1,5 +1,3 @@
-/* src/styling/NavigationPanel.css */
-
 .navigation-panel {
   width: 250px;
   height: 100vh;
@@ -8,36 +6,60 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #282828a8; /* Black background color */
+  align-items: center; /* Center all items horizontally */
+  background: #43527b !important; /* Dark blue background color with !important */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 1;
   padding-top: 20px;
+  border-radius: 0; /* Remove rounded corners */
+  overflow-y: auto; /* Enable scrolling if content exceeds panel height */
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center; /* Center the logo horizontally */
+  width: 100%; /* Ensure logo spans full width */
 }
 
 .navigation-logo {
-  width: 150px;
+  width: 180px; /* Increased logo size */
   margin-bottom: 20px;
 }
 
 .navigation-button {
-  width: 90%;
+  width: calc(100% - 20px); /* Adjusted width, subtracting 20px for margin */
   margin: 10px 0;
-  background-color: #00b4db; /* Button color to match theme */
-  color: white;
-  font-size: 16px;
+  background-color: #43527b !important; /* Dark blue button color with !important */
+  color: #d1d5db; /* Light grey font color */
+  font-size: 14px; /* Decreased font size */
   font-weight: bold;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 0; /* Remove rounded corners */
+  padding: 12px 20px; /* Adjusted padding */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease; /* Transition for background */
   display: flex;
-  justify-content: center; /* Center text horizontally */
+  justify-content: flex-start; /* Align text to the left */
   align-items: center; /* Center text vertically */
+  text-transform: uppercase; /* Convert text to uppercase */
+  text-decoration: none; /* Remove underline from NavLink */
 }
 
-.navigation-button:hover {
-  background-color: #0090d4; /* Slightly darker shade on hover */
+.navigation-button:hover,
+.navigation-button:active {
+  background: linear-gradient(45deg, #1e90ff, #00bfff) !important; /* Gradient for hover, focus, and active states */
+  color: #ffffff !important; /* Change text color on hover, focus, and active */
+}
+
+.navigation-button.selected {
+  background: linear-gradient(45deg, #1e90ff, #00bfff) !important; /* Gradient for selected state */
+  color: #ffffff !important; /* Change text color for selected state */
+}
+
+.navigation-divider {
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background: #d1d5db; /* Light grey color for the divider */
+  margin: 20px 0; /* Margin to add space around the divider */
 }
