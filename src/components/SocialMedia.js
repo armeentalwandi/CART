@@ -1,7 +1,7 @@
 import { useState, React } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
 import NavigationPanel from './NavigationPanel'; // Import the NavigationPanel component
 import '../styling/SocialMedia.css'; // Import CSS for styling
 
@@ -158,6 +158,14 @@ const SocialMedia = () => {
     });
   };
 
+  const [aiRecommendations, setAIRecommendations] = useState([
+    `1. Based on followers distribution, increase ad costs for Instagram and decrease ad costs for Twitter.`,
+    `2. Analyze which types of content (e.g., videos, posts) perform best on each social media platform.`,
+    "3. Consider posting content on each platform at noon, which is when users are most active.",
+    "4. Collaborate with potnetial influencers to reach a wider range of users.",
+    "5. Use predictive analytics models to forecast future trends in social media."
+  ]);
+
   return (
     <Box display="flex" flexGrow={1}>
       <NavigationPanel />
@@ -233,7 +241,13 @@ const SocialMedia = () => {
             <Grid item xs={12}>
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
                 <Typography variant="h6">AI Recommendations</Typography>
-                <Typography variant="h6">TEST</Typography>
+                <List>
+                  {aiRecommendations.map((recommendation, index) => (
+                    <ListItem key={index}>
+                      <ListItemText primary={recommendation} />
+                    </ListItem>
+                  ))}
+                </List>
               </Paper>
             </Grid>
           </Grid>
