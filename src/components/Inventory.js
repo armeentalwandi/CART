@@ -1,8 +1,7 @@
-// src/components/Inventory.js
 import React, { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import { Box, Container, Grid, Paper, Typography, TextField, Button } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, TextField, Button, List, ListItem, ListItemText } from '@mui/material';
 import NavigationPanel from './NavigationPanel';
 import '../styling/Inventory.css'; // Ensure the path is correct
 
@@ -33,7 +32,7 @@ const salesTrendsData = {
   ],
 };
 
-const stockDistributionData = {
+const initialStockDistributionData = {
   labels: ['Item A', 'Item B', 'Item C', 'Item D', 'Item E'],
   datasets: [
     {
@@ -60,6 +59,15 @@ const stockOnHandByClassData = {
     },
   ],
 };
+
+// AI-generated recommendations based on the provided data
+const aiRecommendations = [
+  "1. Increase the stock levels of Item C and Item D to meet the rising sales trends observed in April and May.",
+  "2. Consider redistributing the stock from Item B to Item A to balance the stock distribution and reduce potential overstock.",
+  "3. Monitor the sales trends closely to adjust the stock levels dynamically and prevent stockouts.",
+  "4. Enhance the inventory management for Finished Goods as they have the highest stock on hand.",
+  "5. Implement a predictive model to forecast sales trends and optimize stock levels accordingly."
+];
 
 // Chart options with custom background color
 const chartOptions = {
@@ -104,6 +112,7 @@ const chartOptions = {
 
 const Inventory = () => {
   const [stockLevelsData, setStockLevelsData] = useState(initialStockLevelsData);
+  const [stockDistributionData, setStockDistributionData] = useState(initialStockDistributionData);
   const [newData, setNewData] = useState({});
 
   const handleInputChange = (e) => {
@@ -115,16 +124,30 @@ const Inventory = () => {
   };
 
   const handleUpdateChart = () => {
-    const updatedData = {
+    const updatedData = Object.values(newData).map(Number);
+    
+    const updatedStockLevelsData = {
       labels: stockLevelsData.labels,
       datasets: [
         {
           ...stockLevelsData.datasets[0],
-          data: Object.values(newData).map(Number),
+          data: updatedData,
         },
       ],
     };
-    setStockLevelsData(updatedData);
+
+    const updatedStockDistributionData = {
+      labels: stockDistributionData.labels,
+      datasets: [
+        {
+          ...stockDistributionData.datasets[0],
+          data: updatedData,
+        },
+      ],
+    };
+
+    setStockLevelsData(updatedStockLevelsData);
+    setStockDistributionData(updatedStockDistributionData);
   };
 
   return (
@@ -211,6 +234,21 @@ const Inventory = () => {
                 Update Chart
               </Button>
             </Box>
+          </Box>
+
+          <Box mt={4}>
+            <Typography variant="h6" gutterBottom>
+              AI Recommendations
+            </Typography>
+            <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <List>
+                {aiRecommendations.map((recommendation, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={recommendation} />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
           </Box>
         </Container>
       </Box>
