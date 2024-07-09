@@ -130,7 +130,7 @@ const Inventory = () => {
   return (
     <Box display="flex">
       <NavigationPanel />
-      <Box className="main-content" flexGrow={1}>
+      <Box className="main-content">
         <Container maxWidth="lg" className="inventory-container">
           <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
             Inventory Management Dashboard
