@@ -1,8 +1,8 @@
 // src/components/Inventory.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import NavigationPanel from './NavigationPanel';
 import '../styling/Inventory.css'; // Ensure the path is correct
 
@@ -10,7 +10,7 @@ import '../styling/Inventory.css'; // Ensure the path is correct
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend);
 
 // Sample data for the charts
-const stockLevelsData = {
+const initialStockLevelsData = {
   labels: ['Item A', 'Item B', 'Item C', 'Item D', 'Item E'],
   datasets: [
     {
@@ -103,12 +103,36 @@ const chartOptions = {
 };
 
 const Inventory = () => {
+  const [stockLevelsData, setStockLevelsData] = useState(initialStockLevelsData);
+  const [newData, setNewData] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdateChart = () => {
+    const updatedData = {
+      labels: stockLevelsData.labels,
+      datasets: [
+        {
+          ...stockLevelsData.datasets[0],
+          data: Object.values(newData).map(Number),
+        },
+      ],
+    };
+    setStockLevelsData(updatedData);
+  };
+
   return (
-    <Box display="flex" flexGrow={1}>
+    <Box display="flex">
       <NavigationPanel />
-      <Box flexGrow={1} marginLeft="250px">
+      <Box className="main-content" flexGrow={1}>
         <Container maxWidth="lg" className="inventory-container">
-          <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
+          <Typography variant="h4" gutterBottom className="inventory-title">
             Inventory Management Dashboard
           </Typography>
           <Grid container spacing={2}>
@@ -163,6 +187,31 @@ const Inventory = () => {
               </Paper>
             </Grid>
           </Grid>
+
+          <Box mt={4}>
+            <Typography variant="h6" gutterBottom>
+              Update Stock Levels
+            </Typography>
+            <Grid container spacing={2}>
+              {stockLevelsData.labels.map((label, index) => (
+                <Grid item xs={12} sm={6} md={2} key={index}>
+                  <TextField
+                    label={label}
+                    name={label}
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+            <Box mt={2}>
+              <Button variant="contained" color="primary" onClick={handleUpdateChart}>
+                Update Chart
+              </Button>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </Box>

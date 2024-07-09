@@ -23,7 +23,7 @@ const NavigationPanel = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        background: '#282828a8', // Black background color
+        background: '#000', // Black background color
         boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
         zIndex: 1,
         paddingTop: '20px'
