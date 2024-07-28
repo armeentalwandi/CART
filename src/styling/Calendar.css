@@ -1,0 +1,67 @@
+.calendar-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .calendar-title {
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .custom-calendar {
+    border: none; /* Remove default border */
+  }
+  
+  .react-calendar {
+    border: none; /* Remove default border */
+  }
+  
+  .react-calendar__tile {
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .react-calendar__tile--active {
+    background: #007aff; /* Apple's blue color */
+    color: #ffffff;
+  }
+  
+  .react-calendar__tile--active:enabled:hover {
+    background: #0051a2; /* Darker blue on hover */
+  }
+  
+  .react-calendar__tile--now button {
+    background: #007aff; /* Apple's blue color */
+    color: #ffffff;
+  }
+  
+  .react-calendar__month-view__weekdays__weekday {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .react-calendar__navigation button {
+    background: #007aff; /* Apple's blue color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .react-calendar__navigation button:hover {
+    background: #0051a2; /* Darker blue on hover */
+  }
+  
+  .react-calendar__navigation button:disabled {
+    background: #c0c0c0; /* Disabled button background */
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    background: #cdcdcd;
+    color: #7f7f7f;
+  }
+  

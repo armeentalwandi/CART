@@ -10,6 +10,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import ExtensionIcon from '@mui/icons-material/Extension'; // Import ExtensionIcon for Plugins
 import AddIcon from '@mui/icons-material/Add'; // Import AddIcon for Add button
 import SocialMediaIcon from '@mui/icons-material/TrendingUp'; // Import an icon for Social Media Analytics
+import ScheduleIcon from '@mui/icons-material/CalendarMonth'; // Import an icon for Social Media Analytics
 import '../styling/NavigationPanel.css'; // Import the CSS file
 import logo from '../Pics/logo.png'; // Ensure the path to your logo is correct
 import { signOut } from 'firebase/auth'; // Import signOut function from firebase/auth
@@ -28,6 +29,7 @@ const NavigationPanel = () => {
     { id: 'profile', label: 'Profile', icon: <AccountCircleIcon fontSize="small" /> },
     { id: 'help', label: 'Help', icon: <HelpIcon fontSize="small" /> },
     { id: 'plugins', label: 'Plugins', icon: <ExtensionIcon fontSize="small" /> },
+    { id: 'schedule', label: 'Schedule', icon: <ScheduleIcon fontSize="small" /> },
     { id: 'add', label: 'Add', icon: <AddIcon fontSize="small" /> },
   ]);
 
@@ -73,6 +75,9 @@ const NavigationPanel = () => {
         break;
       case 'plugins':
         navigate('/plugins');
+        break;
+      case 'schedule':
+        navigate('/schedule');
         break;
       case 'signout':
         handleSignOut();

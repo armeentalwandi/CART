@@ -178,7 +178,7 @@ const SocialMedia = () => {
     <Box display="flex" flexGrow={1}>
       <NavigationPanel />
       <Box flexGrow={1} marginLeft="250px">
-        <Container maxWidth="lg" className="customer-insights-container">
+        <Container maxWidth="lg" className="social-media-container">
           <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
             Social Media Dashboard
           </Typography>
