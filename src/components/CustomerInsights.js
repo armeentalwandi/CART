@@ -209,11 +209,11 @@ const CustomerInsights = () => {
     const highestInterest = getHighestInterest();
     const mostEngagedChannel = getMostEngagedChannel();
     const newRecommendations = [
-      `1. Based on recent inputs, increase marketing efforts on ${mostEngagedChannel} to engage more customers.`,
-      `2. Consider offering promotions on ${highestInterest} as it shows high interest.`,
-      "3. Consider offering discounts on sports equipment as interest in this category is growing.",
-      "4. Increase marketing efforts on social media to engage with younger demographics.",
-      "5. Enhance mobile app features to boost customer engagement and retention."
+      `Based on recent inputs, increase marketing efforts on ${mostEngagedChannel} to engage more customers.`,
+      `Consider offering promotions on ${highestInterest} as it shows high interest.`,
+      "Consider offering discounts on sports equipment as interest in this category is growing.",
+      "Increase marketing efforts on social media to engage with younger demographics.",
+      "Enhance mobile app features to boost customer engagement and retention."
     ];
     setAIRecommendations(newRecommendations);
   };
@@ -235,67 +235,67 @@ const CustomerInsights = () => {
   }, [customerDemographicsData, purchasingBehaviorData, customerEngagementData, loyaltyProgramData]);
 
   return (
-    <Box display="flex" flexGrow={1}>
+    <Box display="flex" flexGrow={1} className="customer-background">
       <NavigationPanel />
       <Box flexGrow={1} marginLeft="250px">
         <Container maxWidth="lg" className="customer-insights-container">
-          <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
+          <Typography variant="h4" gutterBottom style={{ color: '#E0FFFF', fontFamily: 'Source Code Pro' }}>
             Customer Insights Dashboard
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper className="metric-box">
+              <Paper className="metric-box" style={{ backgroundColor: '#0096FF', color: '#FFFFFF' }}>
                 <Typography variant="h6">Total Customers</Typography>
                 <Typography variant="h4">{metrics.totalCustomers}</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper className="metric-box">
+              <Paper className="metric-box" style={{ backgroundColor: '#0096FF', color: '#FFFFFF' }}>
                 <Typography variant="h6">Active Users</Typography>
                 <Typography variant="h4">{metrics.activeUsers}</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper className="metric-box">
+              <Paper className="metric-box" style={{ backgroundColor: '#0096FF', color: '#FFFFFF' }}>
                 <Typography variant="h6">New Signups</Typography>
                 <Typography variant="h4">{metrics.newSignups}</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper className="metric-box">
+              <Paper className="metric-box" style={{ backgroundColor: '#0096FF', color: '#FFFFFF' }}>
                 <Typography variant="h6">Churn Rate</Typography>
                 <Typography variant="h4">{metrics.churnRate}%</Typography>
               </Paper>
             </Grid>
 
             <Grid item xs={12}>
-              <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <Paper className="chart-box" style={{ backgroundColor: '#FFFFFF' }}>
                 <Typography variant="h6">Customer Age Distribution</Typography>
                 <Bar data={customerDemographicsData} options={chartOptions} />
               </Paper>
             </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
-              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#FFFFFF' }}>
                 <Typography variant="h6">Purchasing Behavior</Typography>
                 <Line data={purchasingBehaviorData} options={chartOptions} />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#FFFFFF' }}>
                 <Typography variant="h6">Customer Engagement Channels</Typography>
                 <Pie data={customerEngagementData} options={chartOptions} />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#eae8e4' }}>
+              <Paper className="chart-box small-chart-box" style={{ backgroundColor: '#FFFFFF' }}>
                 <Typography variant="h6">Loyalty Program Status</Typography>
                 <Bar data={loyaltyProgramData} options={chartOptions} />
               </Paper>
             </Grid>
 
             <Grid item xs={12}>
-              <Paper className="chart-box" style={{ backgroundColor: '#eae8e4', minHeight: '700px' }}>
+              <Paper className="chart-box" style={{ backgroundColor: '#FFFFFF', minHeight: '700px' }}>
                 <Typography variant="h6">Add/Update Customer Profile</Typography>
                 <TextField
                   label="Name"
@@ -358,17 +358,41 @@ const CustomerInsights = () => {
                 </List>
               </Paper>
             </Grid>
-
             <Grid item xs={12}>
-              <Paper className="chart-box" style={{ backgroundColor: '#eae8e4' }}>
-                <Typography variant="h6">AI Recommendations</Typography>
-                <List>
+              <Paper className="chart-box" style={{ backgroundColor: '#E0FFFF', padding: '16px' }}>
+                <Typography variant="h6" style={{ fontFamily: 'Source Code Pro' }}>AI Recommendations</Typography>
+                <Box 
+                  display="flex" 
+                  flexWrap="wrap" 
+                  gap="24px" 
+                  justifyContent="center" 
+                  mt={2} 
+                  padding={2} 
+                  bgcolor="#E0FFFF" 
+                  borderRadius="12px"
+                >
                   {aiRecommendations.map((recommendation, index) => (
-                    <ListItem key={index}>
-                      <ListItemText primary={recommendation} />
-                    </ListItem>
+                    <Paper 
+                      key={`mini-${index}`} 
+                      elevation={6} 
+                      style={{ 
+                        padding: '16px', 
+                        width: '150px', 
+                        textAlign: 'center', 
+                        backgroundColor: '#ffffff', 
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                          boxShadow: '0 6px 12px rgba(0,0,0,0.3)',
+                        },
+                      }}
+                    >
+                      <Typography variant="body2">{recommendation}</Typography>
+                    </Paper>
                   ))}
-                </List>
+                </Box>
               </Paper>
             </Grid>
           </Grid>

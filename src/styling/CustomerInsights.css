@@ -10,11 +10,20 @@ body {
     align-items: center;
   }
   
+  .customer-background {
+    background: linear-gradient(to right, #2575fc, #008080);
+    width: 100vw;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   .customer-insights-container {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  
+
   .metric-box {
     text-align: center;
     padding: 20px;
@@ -37,4 +46,3 @@ body {
   .small-chart-box {
     height: 250px;
   }
-  
