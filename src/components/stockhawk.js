@@ -169,6 +169,47 @@ const chartOptions = {
   backgroundColor: '#eae8e4', // Chart background color
 };
 
+// Specific chart options for temperature and humidity
+const temperatureChartOptions = {
+  ...chartOptions,
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Warehouse',
+        color: '#000',
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Temperature (°C)',
+        color: '#000',
+      },
+    },
+  },
+};
+
+const humidityChartOptions = {
+  ...chartOptions,
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Warehouse',
+        color: '#000',
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Humidity (%)',
+        color: '#000',
+      },
+    },
+  },
+};
+
 // Function to capture chart as an image
 const exportChart = (chartRef, chartTitle) => {
   html2canvas(chartRef.current).then((canvas) => {
@@ -231,18 +272,18 @@ const StockhawkDashboard = () => {
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <Paper className="metric-box" style={{ padding: '16px' }}>
-                <Typography variant="h6">Incoming Stock</Typography>
-                <Typography variant="h4">6,812</Typography>
+                <Typography variant="h6">Inventory Turnover</Typography>
+                <Typography variant="h4">6.7</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <Paper className="metric-box" style={{ padding: '16px' }}>
-                <Typography variant="h6">Total Sales Value</Typography>
-                <Typography variant="h4">$ 1,234,567</Typography>
+                <Typography variant="h6">Average Lead Time</Typography>
+                <Typography variant="h4">14 days</Typography>
               </Paper>
             </Grid>
 
-            {/* Expanded size for chart tiles */}
+            {/* Charts */}
             <Grid item xs={12} sm={6} md={6}>
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4', padding: '16px' }}>
                 <Typography variant="h6">Sales Forecast</Typography>
@@ -310,7 +351,7 @@ const StockhawkDashboard = () => {
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4', padding: '16px' }}>
                 <Typography variant="h6">Temperature in Warehouses</Typography>
                 <div ref={temperatureRef} style={{ height: '300px' }}>
-                  <Bar data={initialTemperatureData} options={chartOptions} />
+                  <Bar data={initialTemperatureData} options={temperatureChartOptions} />
                 </div>
                 <Button 
                   onClick={() => exportChart(temperatureRef, 'Temperature in Warehouses')} 
@@ -326,7 +367,7 @@ const StockhawkDashboard = () => {
               <Paper className="chart-box" style={{ backgroundColor: '#eae8e4', padding: '16px' }}>
                 <Typography variant="h6">Humidity in Warehouses</Typography>
                 <div ref={humidityRef} style={{ height: '300px' }}>
-                  <Bar data={initialHumidityData} options={chartOptions} />
+                  <Bar data={initialHumidityData} options={humidityChartOptions} />
                 </div>
                 <Button 
                   onClick={() => exportChart(humidityRef, 'Humidity in Warehouses')} 
