@@ -67,7 +67,7 @@ const SchedulePage = () => {
       <Box flexGrow={1} marginLeft="250px">
         <Container maxWidth="lg" className="schedule-container">
           <Typography variant="h4" gutterBottom className="page-title">
-            Schedule Dashboard (TimeValet)
+            Schedule Dashboard Powered by TimeValet
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
