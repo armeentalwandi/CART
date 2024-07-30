@@ -240,7 +240,7 @@ const CustomerInsights = () => {
       <Box flexGrow={1} marginLeft="250px">
         <Container maxWidth="lg" className="customer-insights-container">
           <Typography variant="h4" gutterBottom style={{ color: '#E0FFFF', fontFamily: 'Source Code Pro' }}>
-            Customer Insights Dashboard
+            Customer Insights Powered by Datavision
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={3}>
