@@ -9,6 +9,7 @@ import Plugin from './components/Plugin';
 import SocialMedia from './components/SocialMedia';
 import Profile from './components/Profile';
 import SchedulePage from './components/Schedule';
+import StockhawkDashboard from './components/stockhawk';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/social-media" element={<SocialMedia />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/stockhawk" element={<StockhawkDashboard/>} />
         </Route>
       </Routes>
     </Router>

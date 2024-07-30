@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom'; // Import NavLink for routing
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Paper } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import StorageIcon from '@mui/icons-material/Storage';
@@ -7,20 +7,20 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HelpIcon from '@mui/icons-material/Help';
-import ExtensionIcon from '@mui/icons-material/Extension'; // Import ExtensionIcon for Plugins
-import AddIcon from '@mui/icons-material/Add'; // Import AddIcon for Add button
-import SocialMediaIcon from '@mui/icons-material/TrendingUp'; // Import an icon for Social Media Analytics
-import ScheduleIcon from '@mui/icons-material/CalendarMonth'; // Import an icon for Social Media Analytics
-import '../styling/NavigationPanel.css'; // Import the CSS file
-import logo from '../Pics/logo.png'; // Ensure the path to your logo is correct
-import { signOut } from 'firebase/auth'; // Import signOut function from firebase/auth
-import { auth } from '../firebase'; // Import the auth instance from your firebase config
+import ExtensionIcon from '@mui/icons-material/Extension';
+import AddIcon from '@mui/icons-material/Add';
+import SocialMediaIcon from '@mui/icons-material/TrendingUp';
+import ScheduleIcon from '@mui/icons-material/CalendarMonth';
+import '../styling/NavigationPanel.css';
+import logo from '../Pics/logo.png';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
-const NavigationPanel = () => {
+const NavigationPanel = ({ stockhawkEnabled }) => {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(null);
-
   const [draggingIndex, setDraggingIndex] = useState(null);
+  const [showStockhawk, setShowStockhawk] = useState(stockhawkEnabled); // State for Stockhawk button visibility
   const [buttons, setButtons] = useState([
     { id: 'home', label: 'Home', icon: <HomeIcon fontSize="small" /> },
     { id: 'inventory', label: 'Inventory', icon: <StorageIcon fontSize="small" /> },
@@ -31,7 +31,24 @@ const NavigationPanel = () => {
     { id: 'plugins', label: 'Plugins', icon: <ExtensionIcon fontSize="small" /> },
     { id: 'schedule', label: 'Schedule', icon: <ScheduleIcon fontSize="small" /> },
     { id: 'add', label: 'Add', icon: <AddIcon fontSize="small" /> },
+    { id: 'stockhawk', label: 'Stockhawk', icon: <SocialMediaIcon fontSize="small" />, visible: false }, // Initialize with visible false
   ]);
+
+  useEffect(() => {
+    // Update showStockhawk state based on stockhawkEnabled prop
+    setShowStockhawk(stockhawkEnabled);
+  }, [stockhawkEnabled]);
+
+  useEffect(() => {
+    // Update buttons array to show/hide the Stockhawk button
+    setButtons(prevButtons => 
+      prevButtons.map(button => 
+        button.id === 'stockhawk'
+          ? { ...button, visible: showStockhawk }
+          : button
+      )
+    );
+  }, [showStockhawk]);
 
   const handleDragStart = (index) => {
     setDraggingIndex(index);
@@ -82,8 +99,10 @@ const NavigationPanel = () => {
       case 'signout':
         handleSignOut();
         break;
+      case 'stockhawk':
+        navigate('/stockhawk');
+        break;
       default:
-        // handle other cases
         break;
     }
     setSelectedButton(id);
@@ -106,20 +125,22 @@ const NavigationPanel = () => {
       </div>
       <Box p={2} width="100%" display="flex" flexDirection="column" alignItems="flex-start">
         {buttons.map((button, index) => (
-          <div
-            key={button.id}
-            className={`navigation-button ${selectedButton === button.id ? 'selected' : ''}`}
-            onClick={() => handleButtonClick(button.id)}
-            draggable={button.id !== 'signout'} // Disable drag for 'Sign Out' button
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={() => handleDragOver(index)}
-            onDragEnd={handleDragEnd}
-          >
-            {button.icon}
-            <span style={{ marginLeft: 8 }}>{button.label}</span>
-          </div>
+          button.visible !== false && ( // Only render buttons that are visible
+            <div
+              key={button.id}
+              className={`navigation-button ${selectedButton === button.id ? 'selected' : ''}`}
+              onClick={() => handleButtonClick(button.id)}
+              draggable={button.id !== 'signout'} // Disable drag for 'Sign Out' button
+              onDragStart={() => handleDragStart(index)}
+              onDragOver={() => handleDragOver(index)}
+              onDragEnd={handleDragEnd}
+            >
+              {button.icon}
+              <span style={{ marginLeft: 8 }}>{button.label}</span>
+            </div>
+          )
         ))}
-        <hr className="navigation-divider" /> {/* Horizontal divider */}
+        <hr className="navigation-divider" />
         <div
           className={`navigation-button ${selectedButton === 'signout' ? 'selected' : ''}`}
           onClick={() => handleButtonClick('signout')}

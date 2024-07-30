@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { Box, Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid, Snackbar } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material'; // Import icons
 import NavigationPanel from './NavigationPanel'; // Import NavigationPanel component
 import AWSIcon from '../Pics/aws.png'; // Import your AWS icon
@@ -13,6 +13,8 @@ const Plugin = () => {
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', suggestion: '' });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [stockhawkEnabled, setStockhawkEnabled] = useState(false);
 
   const handleOpenForm = () => {
     setOpenForm(true);
@@ -37,11 +39,28 @@ const Plugin = () => {
     handleCloseForm();
   };
 
+  const handleStockhawkToggle = () => {
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleToggleStockhawk = (toggle) => {
+    setSnackbarOpen(false);
+    if (toggle === 'yes') {
+      setStockhawkEnabled(true);
+    } else {
+      setStockhawkEnabled(false);
+    }
+  };
+
   return (
     <div className="plugin-page">
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <NavigationPanel /> {/* Include NavigationPanel component on the left */}
+          <NavigationPanel stockhawkEnabled={stockhawkEnabled} /> {/* Pass the stockhawkEnabled state */}
         </Grid>
         <Grid item xs={9}>
           <div className="plugin-content">
@@ -98,6 +117,26 @@ const Plugin = () => {
                 <img src={SalesforceIcon} alt="Salesforce" className="plugin-icon" />
                 <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#333' }}>
                   Salesforce
+                </Typography>
+              </Paper>
+
+              {/* Stockhawk Plugin Tile */}
+              <Paper
+                className="plugin-tile"
+                onClick={handleStockhawkToggle}
+                sx={{
+                  ...tileStyle,
+                  background: '#f0f0f0',
+                  color: '#666',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #1e90ff, #00bfff)',
+                    color: '#ffffff',
+                  },
+                }}
+              >
+                <AddIcon style={{ fontSize: 60, color: '#1e90ff' }} />
+                <Typography variant="subtitle1" align="center" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: '#1e90ff' }}>
+                  Stockhawk
                 </Typography>
               </Paper>
 
@@ -174,6 +213,20 @@ const Plugin = () => {
                 </Button>
               </DialogActions>
             </Dialog>
+
+            {/* Snackbar for Stockhawk Toggle */}
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={6000}
+              onClose={handleSnackbarClose}
+              message="Do you want to toggle Stockhawk application?"
+              action={
+                <>
+                  <Button color="inherit" onClick={() => handleToggleStockhawk('yes')}>Yes</Button>
+                  <Button color="inherit" onClick={() => handleToggleStockhawk('no')}>No</Button>
+                </>
+              }
+            />
           </div>
         </Grid>
       </Grid>

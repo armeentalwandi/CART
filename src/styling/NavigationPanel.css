@@ -45,6 +45,11 @@
   text-decoration: none; /* Remove underline from NavLink */
 }
 
+.navigation-button.hidden {
+  display: none;
+}
+
+
 .navigation-button:hover,
 .navigation-button:active {
   background: linear-gradient(45deg, #1e90ff, #00bfff) !important; /* Gradient for hover, focus, and active states */
